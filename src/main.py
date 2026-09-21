@@ -10,6 +10,7 @@ MIN_FONT_SIZE = 6
 MAX_FONT_SIZE = 40
 WINDOW_HEIGHT = 600
 WINDOW_WIDTH = 800
+CURRENT_DIRECTORY = '~'
 
 
 def ls(args: list[str]) -> str:
@@ -86,7 +87,7 @@ def exit_app() -> None:
 username = os.getlogin()
 hostname = os.uname().nodename
 symbol = "#" if os.geteuid() == ROOT_UID else "$"
-invite = f"{username}@{hostname}{symbol} "
+invite = f"{username}@{hostname}:{CURRENT_DIRECTORY}{symbol} "
 
 
 def main() -> None:
