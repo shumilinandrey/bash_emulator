@@ -31,13 +31,13 @@ def cout(text: str) -> None:
 
 def enter(event: tk.Event):
     """Парсинг команд"""
+    cout("\n")
     command = terminal.get("input_start", "end-1c").strip()
     if command == "exit":
         exit_app()
 
     if command:
         command = command.split()
-        cout("\n")
         if command[0] == "ls":
             cout(ls(command[1:]))
         elif command[0] == "cd":
