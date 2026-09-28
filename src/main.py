@@ -175,15 +175,8 @@ def print_debug_info(vfs: str | None, script: str | None) -> None:
     cout("-" * 40 + "\n\n")
 
 
-def main() -> None:
-    """Инициализация программы и отрисовка окна"""
-    global window, terminal
-    args = parse_arguments(sys.argv[1:])
-    window = tk.Tk()
-    window.title(f"Эмулятор - [{username}@{hostname}]")
-    window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
-    window.pack_propagate(False)
-
+def create_terminal() -> tk.Text:
+    """Создание и настройка терминала"""
     terminal = tk.Text(
         window,
         bg="black",
@@ -199,7 +192,26 @@ def main() -> None:
     terminal.bind("<Control-equal>", zoom_in)
     terminal.bind("<Control-minus>", zoom_out)
 
-    print_debug_info(args.virtual_file_system_path, args.script_path)
+    return terminal
+
+
+def main() -> None:
+    """Инициализация программы и отрисовка окна"""
+    global window, terminal
+
+    args = parse_arguments(sys.argv[1:])
+
+    window = tk.Tk()
+    window.title(f"Эмулятор - [{username}@{hostname}]")
+    window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
+    window.pack_propagate(False)
+
+    terminal = create_terminal()
+
+    print_debug_info(
+        args.virtual_file_system_path,
+        args.script_path
+    )
 
     if args.virtual_file_system_path:
         vfs = load_vfs(args.virtual_file_system_path)
