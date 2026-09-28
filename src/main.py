@@ -110,6 +110,13 @@ def backspace(event: tk.Event) -> str | None:
     return None
 
 
+def protect_output(event: tk.Event) -> str | None:
+    """Запрет изменения старого вывода терминала"""
+    if event.char and terminal.compare("insert", "<", "input_start"):
+        terminal.mark_set("insert", "end-1c")
+    return None
+
+
 def zoom_in(event: tk.Event) -> str:
     """Увеличивает размер шрифта"""
     font_name, size = terminal.cget("font").split()
@@ -168,6 +175,7 @@ def main() -> None:
 
     terminal.bind("<Return>", enter)
     terminal.bind("<BackSpace>", backspace)
+    terminal.bind("<KeyPress>", protect_output, add="+")
     terminal.bind("<Control-equal>", zoom_in)
     terminal.bind("<Control-minus>", zoom_out)
 
