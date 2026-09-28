@@ -19,7 +19,12 @@ CURRENT_DIRECTORY = '~'
 
 def parse_arguments(args: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('-vfs', '--virtual_file_system_path', type=str, default=None)
+    parser.add_argument(
+        '-vfs',
+        '--virtual_file_system_path',
+        type=str,
+        default=None
+    )
     parser.add_argument('-s', '--script_path', type=str, default=None)
     return parser.parse_args(args)
 
