@@ -1,0 +1,34 @@
+{
+    "type": "directory",
+    "children": {
+        "folder1": {
+            "type": "directory",
+            "children": {
+                "folder2": {
+                    "type": "directory",
+                    "children": {
+                        "folder3": {
+                            "type": "directory",
+                            "children": {
+                                "folder4": {
+                                    "type": "directory",
+                                    "children": {
+                                        "folder5": {
+                                            "type": "directory",
+                                            "children": {
+                                                "motd": {
+                                                    "type": "file",
+                                                    "content": "motd content"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

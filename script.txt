@@ -1,4 +1,0 @@
-ii
-cd cd
-ls
-

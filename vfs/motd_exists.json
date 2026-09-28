@@ -1,0 +1,13 @@
+{
+    "type": "directory",
+    "children": {
+        "motd": {
+            "type": "file",
+            "content": "motd content"
+        },
+        "randomtxtfile.txt": {
+            "type": "file",
+            "content": "123"
+        }
+    }
+}

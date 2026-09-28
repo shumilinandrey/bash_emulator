@@ -6,6 +6,8 @@ import tkinter as tk
 import sys
 import argparse
 
+from vfs import load_vfs, get_node, read_file
+
 
 ROOT_UID = 0
 DEFAULT_FONT_SIZE = 14
@@ -18,6 +20,7 @@ CURRENT_DIRECTORY = '~'
 
 
 def parse_arguments(args: list[str] | None = None) -> argparse.Namespace:
+    """Парсинг аргументов командной строки"""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-vfs',
@@ -77,6 +80,7 @@ def process_command(command: str) -> None:
 
 
 def process_script(script_path: str) -> None:
+    """Считывание стартового скрипта"""
     if not os.path.exists(script_path):
         cout(f"Скрипт {script_path} не найден\n")
         return
@@ -149,6 +153,7 @@ def zoom_out(event: tk.Event) -> str:
 
 
 def exit_app() -> None:
+    """Выход из эмулятора терминала."""
     if "window" in globals() and window:
         window.destroy()
     sys.exit(0)
@@ -161,6 +166,7 @@ invite = f"{username}@{hostname}:{CURRENT_DIRECTORY}{symbol} "
 
 
 def print_debug_info(vfs: str | None, script: str | None) -> None:
+    """Выводит отладочное инфо."""
     cout("[*] Запуск эмулятора терминала...\n")
     if vfs:
         cout(f"[+] VFS path   : {vfs}\n")
@@ -194,6 +200,17 @@ def main() -> None:
     terminal.bind("<Control-minus>", zoom_out)
 
     print_debug_info(args.virtual_file_system_path, args.script_path)
+
+    if args.virtual_file_system_path:
+        vfs = load_vfs(args.virtual_file_system_path)
+        if vfs:
+            motd = get_node(vfs, "/motd")
+            if motd:
+                motd_text = read_file(motd)
+                if motd_text:
+                    cout(f"{invite}Motd text: ")
+                    cout(motd_text)
+                    cout("\n")
 
     if args.script_path:
         process_script(args.script_path)

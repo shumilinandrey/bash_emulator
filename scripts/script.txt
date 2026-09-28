@@ -1,0 +1,5 @@
+ls
+ls file
+cd cd
+alalal
+exit no exit
