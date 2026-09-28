@@ -81,6 +81,8 @@ def process_script(script_path: str) -> None:
             for line in file:
                 try:
                     cout(f"{invite}{line}")
+                    if not line.endswith("\n"):
+                        cout("\n")
                     process_command(line.strip())
                 except Exception as e:
                     cout(e)
@@ -112,8 +114,14 @@ def backspace(event: tk.Event) -> str | None:
 
 def protect_output(event: tk.Event) -> str | None:
     """Запрет изменения старого вывода терминала"""
-    if event.char and terminal.compare("insert", "<", "input_start"):
-        terminal.mark_set("insert", "end-1c")
+    if terminal.compare("insert", "<", "input_start"):
+        if event.char:
+            terminal.mark_set("insert", "end-1c")
+            return None
+
+        if event.keysym in ("BackSpace", "Delete"):
+            return "break"
+
     return None
 
 
@@ -139,6 +147,7 @@ def exit_app() -> None:
     if "window" in globals() and window:
         window.destroy()
     sys.exit(0)
+
 
 username = getpass.getuser()
 hostname = platform.node()
