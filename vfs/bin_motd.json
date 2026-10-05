@@ -1,0 +1,10 @@
+{
+    "type": "directory",
+    "children": {
+        "motd": {
+            "type": "file",
+            "encoding": "base64",
+            "content": "TW90ZCBjb250ZW50IGI2NA=="
+        }
+    }
+}

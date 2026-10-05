@@ -27,9 +27,13 @@ def get_node(vfs: dict[str, Any], path: str) -> dict[str, Any] | None:
     return node
 
 
-def read_file(node: dict[str, Any]) -> str | None:
+def read_file(node: dict[str, Any]) -> str | bytes | None:
+    """Возвращает текст или декодированные двоичные данные файла"""
     if node.get("type") != "file":
         return None
-    return node.get("content", "Файл пустой")
 
+    content = node.get("content", "")
+    if node.get("encoding") == "base64":
+        return base64.b64decode(content, validate=True)
 
+    return content
