@@ -102,16 +102,18 @@ def process_script(script_path: str) -> None:
         cout(e)
 
 
-def enter(event: tk.Event):
-    """Парсинг команд"""
-    cout("\n")
+def enter(event: tk.Event) -> str:
+    """Исполняет команду и создаёт приглашение в конце терминала"""
+    terminal.mark_set("insert", "end-1c")
     command = terminal.get("input_start", "end-1c").strip()
+    cout("\n")
 
     if command:
         process_command(command)
 
     cout(invite)
-    terminal.mark_set("input_start", "insert")
+    terminal.mark_set("insert", "end-1c")
+    terminal.mark_set("input_start", "end-1c")
     terminal.mark_gravity("input_start", tk.LEFT)
     terminal.see(tk.END)
     return "break"
@@ -231,7 +233,8 @@ def main() -> None:
         process_script(args.script_path)
 
     cout(invite)
-    terminal.mark_set("input_start", "insert")
+    terminal.mark_set("insert", "end-1c")
+    terminal.mark_set("input_start", "end-1c")
     terminal.mark_gravity("input_start", tk.LEFT)
     terminal.focus_set()
     window.mainloop()
