@@ -6,7 +6,10 @@ import tkinter as tk
 import sys
 import argparse
 
-from vfs import load_vfs, get_node, read_file
+if __package__:
+    from .vfs import load_vfs, get_node, read_file
+else:
+    from vfs import load_vfs, get_node, read_file
 
 
 ROOT_UID = 0
